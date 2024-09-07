@@ -1,0 +1,72 @@
+import tkinter as tk
+from tkinter import messagebox
+import itertools
+
+# Amino acid molecular weights dictionary
+amino_acid_weights = {
+    'A': 89.09, 'R': 174.20, 'N': 132.12, 'D': 133.10, 'C': 121.16,
+    'E': 147.13, 'Q': 146.15, 'G': 75.07, 'H': 155.16, 'I': 131.18,
+    'L': 131.18, 'K': 146.19, 'M': 149.21, 'F': 165.19, 'P': 115.13,
+    'S': 105.09, 'T': 119.12, 'W': 204.23, 'Y': 181.19, 'V': 117.15
+}
+
+def add_entry():
+    entry_var = tk.StringVar()
+    entry = tk.Entry(frame, textvariable=entry_var)
+    entry.grid(row=len(entry_widgets) + 1, column=0, pady=5)
+    entry_widgets.append(entry_var)
+
+def generate_combinations():
+    input_list = [entry_var.get() for entry_var in entry_widgets if entry_var.get() in amino_acid_weights]
+
+    if not input_list:
+        messagebox.showerror("Invalid Input", "Please enter valid amino acid abbreviations.")
+        return
+
+    all_combinations = []
+    all_sums = []
+
+    # Generate all possible combinations of the input list
+    for r in range(1, len(input_list) + 1):
+        combinations = itertools.combinations(input_list, r)
+        all_combinations.extend(combinations)
+
+    # Calculate the sum of each combination
+    for combination in all_combinations:
+        combination_sum = sum(amino_acid_weights[aa] for aa in combination)
+        all_sums.append(combination_sum)
+
+    # Display the results
+    result_text.delete(1.0, tk.END)
+    for combination, sum_value in zip(all_combinations, all_sums):
+        result_text.insert(tk.END, f"Combination: {''.join(combination)}\tSum: {sum_value:.2f}\n")
+
+# Create a new Tkinter window
+window = tk.Tk()
+window.title("Amino Acid Combinations and Sums")
+
+# Create a frame to contain the Entry widgets
+frame = tk.Frame(window)
+frame.pack(pady=10)
+
+# Create an initial Entry widget for user input
+entry_widgets = []
+entry_var = tk.StringVar()
+entry = tk.Entry(frame, textvariable=entry_var)
+entry.grid(row=0, column=0, pady=5)
+entry_widgets.append(entry_var)
+
+# Create a button to add new Entry widgets
+add_button = tk.Button(window, text="Add Amino Acid", command=add_entry)
+add_button.pack(pady=5)
+
+# Create a button widget to generate combinations and sums
+generate_button = tk.Button(window, text="Generate Combinations", command=generate_combinations)
+generate_button.pack(pady=10)
+
+# Create a text widget to display the result
+result_text = tk.Text(window, height=15, width=50)
+result_text.pack(pady=10)
+
+# Start the Tkinter event loop
+window.mainloop()
