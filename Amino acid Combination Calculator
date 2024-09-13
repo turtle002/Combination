@@ -1,13 +1,14 @@
 import tkinter as tk
 from tkinter import messagebox
 import itertools
+import openpyxl
 
-# Amino acid molecular weights dictionary
+# Amino acid dehydration molecular weights dictionary
 amino_acid_weights = {
-    'A': 89.09, 'R': 174.20, 'N': 132.12, 'D': 133.10, 'C': 121.16,
-    'E': 147.13, 'Q': 146.15, 'G': 75.07, 'H': 155.16, 'I': 131.18,
-    'L': 131.18, 'K': 146.19, 'M': 149.21, 'F': 165.19, 'P': 115.13,
-    'S': 105.09, 'T': 119.12, 'W': 204.23, 'Y': 181.19, 'V': 117.15
+    'A': 89.09 - 18.015, 'R': 174.20 - 18.015, 'N': 132.12 - 18.015, 'D': 133.10 - 18.015, 'C': 121.16 - 18.015,
+    'E': 147.13 - 18.015, 'Q': 146.15 - 18.015, 'G': 75.07 - 18.015, 'H': 155.16 - 18.015, 'I': 131.18 - 18.015,
+    'L': 131.18 - 18.015, 'K': 146.19 - 18.015, 'M': 149.21 - 18.015, 'F': 165.19 - 18.015, 'P': 115.13 - 18.015,
+    'S': 105.09 - 18.015, 'T': 119.12 - 18.015, 'W': 204.23 - 18.015, 'Y': 181.19 - 18.015, 'V': 117.15 - 18.015
 }
 
 def add_entry():
@@ -17,7 +18,7 @@ def add_entry():
     entry_widgets.append(entry_var)
 
 def generate_combinations():
-    input_list = [entry_var.get() for entry_var in entry_widgets if entry_var.get() in amino_acid_weights]
+    input_list = [entry_var.get().strip().upper() for entry_var in entry_widgets if entry_var.get().strip().upper() in amino_acid_weights]
 
     if not input_list:
         messagebox.showerror("Invalid Input", "Please enter valid amino acid abbreviations.")
@@ -33,13 +34,37 @@ def generate_combinations():
 
     # Calculate the sum of each combination
     for combination in all_combinations:
-        combination_sum = sum(amino_acid_weights[aa] for aa in combination)
+        combination_sum = sum(amino_acid_weights[aa] for aa in combination)+18.015 #the final calculated result should plus one H2O molecular weight
         all_sums.append(combination_sum)
 
     # Display the results
     result_text.delete(1.0, tk.END)
     for combination, sum_value in zip(all_combinations, all_sums):
         result_text.insert(tk.END, f"Combination: {''.join(combination)}\tSum: {sum_value:.2f}\n")
+
+    # Store results to an Excel file
+    store_results_to_excel(all_combinations, all_sums)
+
+def store_results_to_excel(combinations, sums):
+    # Create a new Excel workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = "Combinations and Sums"
+
+    # Write header
+    sheet.append(["Combination", "Sum"])
+
+    # Write the combinations and sums to the Excel file
+    for combination, sum_value in zip(combinations, sums):
+        sheet.append(["".join(combination), sum_value])
+
+    # Save the Excel file to the desktop
+    desktop_path = "C:/Users/chongjielian/Desktop/Amino acid combinations_sums.xlsx"
+    file_path = desktop_path 
+    workbook.save(file_path)
+
+    # Display a message box to indicate that the file has been saved
+    messagebox.showinfo("File Saved", f"The results have been saved to '{file_path}'.")
 
 # Create a new Tkinter window
 window = tk.Tk()
@@ -65,7 +90,7 @@ generate_button = tk.Button(window, text="Generate Combinations", command=genera
 generate_button.pack(pady=10)
 
 # Create a text widget to display the result
-result_text = tk.Text(window, height=15, width=50)
+result_text = tk.Text(window, height=30, width=70)
 result_text.pack(pady=10)
 
 # Start the Tkinter event loop
