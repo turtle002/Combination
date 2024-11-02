@@ -1,25 +1,26 @@
-When chemists synthesize peptides, how do they identify unknown substances in mass spectra caused by the absence of one or more amino acids?
-This project can display the sum of all possible combinations of a peptide, which is composed of amino acids
-Before showing the function of this calculator, we start to introduce the peptide first
+# Amino acid Combination Calculator  
+## When chemists synthesize peptides, how do they identify unknown substances in mass spectra caused by the absence of one or more amino acids?  
+I made a simple calculator to solve the peptide fragment problem. Before explaining what I did,Let’s explain what a peptide is.  
+A peptide is composed of amino acids, the building blocks of proteins. These amino acids are linked in a specific sequence, forming a chain that defines the peptide's structure and function.  
+  
+![amino-acid-peptide-and-protein jpg](https://github.com/user-attachments/assets/46132367-b8f7-4c63-a879-02534e39af41)
+  
+Chemists can synthesize peptides and use mass spectrometry to analyze whether the peptide fragments are what we want. However, many times we can find from mass spectrometry that some unknown substances are composed of one or more amino acids missing. To quickly identify these peptides missing certain amino acids, I created a tool that can list all possible amino acid combinations of a peptide. Arrange and combine acids and calculate their molecular weights, so that chemists can immediately know that the peptide they synthesize may be missing certain amino acids.
+  
+For example, if a chemist synthesizes a sequence "SGDEPA" and a peak appears in the mass spectrum, its sequence is missing two amino acids, G and D. To quickly identify this peak, automatically calculate all possible combinations of amino acid molecular weights will save time in identifying unknown peaks in mass spectra caused by fragment loss.
 
-A peptide is composed of amino acids, which are the building blocks of proteins. These amino acids are linked in a specific sequence, forming a chain that defines the structure and function of the peptide.
-
-![amino-acid-peptide-and-protein.jpg](https://prod-files-secure.s3.us-west-2.amazonaws.com/1ef694da-f4ee-4b1b-8a65-52202ac07904/4b2b2bc1-c1b3-482b-91be-04cb9a10cba9/5c7be388-cbe9-45ba-bad2-06ad51ad170a.png)
-A peptide is a string of amino acids. https://www.cellgs.com/blog
-
-Solid phase peptide technique: 
-       The **solid-phase peptide synthesis (SPPS)** technique is widely used for constructing peptides. This technique involves sequentially adding amino acids to a growing chain, anchored to a solid support, allowing for efficient purification and synthesis of complex peptides.
-        SPPS is crucial for pharmaceutical manufacturing because it allows for the efficient, scalable, and precise production of peptides, which are increasingly used as therapeutic agents. Key benefits for pharmaceutical companies.
-
-![Screenshot 2024-09-08 110933.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1ef694da-f4ee-4b1b-8a65-52202ac07904/79d8007a-7c17-4d88-ab52-f93bbce92a98/eed9efa0-411c-44ad-b716-3db1839f87a7.png)
-Solid phase peptide synthesis. https://www.biotage.com/blog
-
- During the synthesis process, we may lose some amino acids. For example, if I synthesize a sequence "SGDEPA" and a peak appears in the mass spectrum, its sequence is missing two amino acids, G and D. To quickly identify this peak, developing a small program to calculate all possible combinations of amino acid molecular weights will save time in identifying unknown peaks in mass spectra caused by fragment loss.
-
- Let’s start understanding how this program works?
-
-![01.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1ef694da-f4ee-4b1b-8a65-52202ac07904/9e11361e-f901-4a7a-9305-4d17f99fcbd7/01.png)
-
-![02.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1ef694da-f4ee-4b1b-8a65-52202ac07904/6bc21dd2-9f2d-46d5-b8b1-49cdc2ec121b/02.png)
-
-![03.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1ef694da-f4ee-4b1b-8a65-52202ac07904/5bd62906-9b27-404a-a259-abbe6eb86243/03.png)
+Let’s start understanding how this program works?  
+*Starting screen*  
+![01](https://github.com/user-attachments/assets/15fedebe-c941-4e48-80bc-017ab5162301)  
+  
+*Input the amino acid sequence*  
+![02](https://github.com/user-attachments/assets/54783ba1-b319-4ade-be77-cb4218b301ae)  
+  
+*Show the combination results*  
+![03](https://github.com/user-attachments/assets/62b9ea98-dcfd-4c95-bb7e-92ee19c03ee4)  
+  
+### **Notes and possible changes:**  
+This program only includes 20 amino acids found in nature. In the future, users will be able to enter the codes and molecular weights of non-natural amino acids.
+ 
+ 
+   
