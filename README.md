@@ -1,4 +1,4 @@
-# Amino acid Combination Calculator  
+# Amino Acid Combination Calculator  
 ## When chemists synthesize peptides, how do they identify unknown substances in mass spectra caused by the absence of one or more amino acids?  
 I made a simple calculator to solve the peptide fragment problem. Before explaining what I did,Let’s explain what a peptide is.  
 A peptide is composed of amino acids, the building blocks of proteins. These amino acids are linked in a specific sequence, forming a chain that defines the peptide's structure and function.  
